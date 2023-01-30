@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.14.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="IntroductionA brief history of Graph Neural Networks The notation of graph neural networks was firstly outlined in Gori et al.  (2005)  And further elaborated in Micheli (2009) and Scarselli et al. (2">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GCN note">
+<meta property="og:url" content="http://example.com/2019/04/04/GCNnote/index.html">
+<meta property="og:site_name" content="Dracarys">
+<meta property="og:description" content="IntroductionA brief history of Graph Neural Networks The notation of graph neural networks was firstly outlined in Gori et al.  (2005)  And further elaborated in Micheli (2009) and Scarselli et al. (2">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/NEvsGNN.png">
+<meta property="og:image" content="http://example.com/images/GCNvsGAN.png">
+<meta property="article:published_time" content="2019-04-04T05:29:11.000Z">
+<meta property="article:modified_time" content="2023-01-30T14:31:45.165Z">
+<meta property="article:author" content="thylakoids">
+<meta property="article:tag" content="deep learning">
+<meta property="article:tag" content="graph convolutional network">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/NEvsGNN.png">
+
+
+<link rel="canonical" href="http://example.com/2019/04/04/GCNnote/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2019/04/04/GCNnote/","path":"2019/04/04/GCNnote/","title":"GCN note"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>GCN note | Dracarys</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Dracarys</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#A-brief-history-of-Graph-Neural-Networks"><span class="nav-number">1.1.</span> <span class="nav-text">A brief history of Graph Neural Networks</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Graph-neural-network-vs-Network-embedding"><span class="nav-number">1.2.</span> <span class="nav-text">Graph neural network vs. Network embedding</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Definition"><span class="nav-number">2.</span> <span class="nav-text">Definition</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gategorization-and-Frameworks"><span class="nav-number">3.</span> <span class="nav-text">Gategorization and Frameworks</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Taxonomy-of-GNNs"><span class="nav-number">3.1.</span> <span class="nav-text">Taxonomy of GNNs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Frameworks"><span class="nav-number">3.2.</span> <span class="nav-text">Frameworks</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Graph-Convolution-Network"><span class="nav-number">4.</span> <span class="nav-text">Graph Convolution Network</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Spectral-based-Graph-Convolutional-Networks"><span class="nav-number">4.1.</span> <span class="nav-text">Spectral-based Graph Convolutional Networks</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spatial-based-Graph-Convolutional-Networks"><span class="nav-number">4.2.</span> <span class="nav-text">Spatial-based Graph Convolutional Networks</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Graph-Pooling-Modules"><span class="nav-number">4.3.</span> <span class="nav-text">Graph Pooling Modules</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">thylakoids</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/04/04/GCNnote/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="thylakoids">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dracarys">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="GCN note | Dracarys">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          GCN note
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-04-04 13:29:11" itemprop="dateCreated datePublished" datetime="2019-04-04T13:29:11+08:00">2019-04-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-01-30 22:31:45" itemprop="dateModified" datetime="2023-01-30T22:31:45+08:00">2023-01-30</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><h3 id="A-brief-history-of-Graph-Neural-Networks"><a href="#A-brief-history-of-Graph-Neural-Networks" class="headerlink" title="A brief history of Graph Neural Networks"></a>A brief history of Graph Neural Networks</h3><ul>
+<li><p>The notation of graph neural networks was firstly outlined in Gori et al.<br>  (2005)</p>
+</li>
+<li><p>And further elaborated in Micheli (2009) and Scarselli et al. (2009)</p>
+<p>  These early studies learn a target node’s representation by<br>  propagating neighbor information via recurrent neural architectures in<br>  an iterative manner until a stable fixed points is reached. This process is<br>  computationally expensive.</p>
+</li>
+<li><p>The first prominent research on GCNs is presented in Bruna et al.(2013),<br>  which develops a variant of graph convolution based on spectral graph<br>  theory.</p>
+</li>
+<li><p>In addition to graph convolutional networks, many alternative graph<br>  neural networks have been developed in the past few years. These approaches<br>  include graph attention networks, graph autoencoders, graph generative<br>  networks, and graph spatial-temporal networks.</p>
+</li>
+</ul>
+<h3 id="Graph-neural-network-vs-Network-embedding"><a href="#Graph-neural-network-vs-Network-embedding" class="headerlink" title="Graph neural network vs. Network embedding"></a>Graph neural network vs. Network embedding</h3><p>Many network embedding algorithms are typically unsupervised algorithms and<br>they can be broadly classified into three groups: matrix factorization, random<br>walks, and deep learning approaches.</p>
+<p>The deep learning approaches for network embedding at the same time belong to<br>graph neural networks, which include graph antoencoder-based algorithms(e.g.,<br>DNGR and SDNE) and graph convolutional neural networks with unsupervised<br>training(e.g., GraphSage).</p>
+<p><img src="/images/NEvsGNN.png" alt="NEvsGNN"><br><em>Fig. 1:Network Embedding v.s. Graph Neural Networks.</em></p>
+<h2 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h2><p><em>Spatial-Temporal Graph</em> A spatial-temporal graph is an attributed graph where the feature matrix $\textbf{X}$ evolves over time. It is defined as $\mathcal{G} = (\textbf{V,E,A,X})$ with $\textbf{X}\in\textbf{R}^{T\times{N}\times{D}}$ where $T$ is the length of time steps.</p>
+<h2 id="Gategorization-and-Frameworks"><a href="#Gategorization-and-Frameworks" class="headerlink" title="Gategorization and Frameworks"></a>Gategorization and Frameworks</h2><h3 id="Taxonomy-of-GNNs"><a href="#Taxonomy-of-GNNs" class="headerlink" title="Taxonomy of GNNs"></a>Taxonomy of GNNs</h3><ul>
+<li><p>Graph Convolution Networks(GCNs)</p>
+<p>  The key is to learn a function $f$ to generate a node $v_i’$ representation by aggregating its own features $\textbf{X}_i$ and neighbors’ features $\textbf{X}_j$, where $j \in N(v_i)$.</p>
+</li>
+<li><p>Graph Attention Networks</p>
+<p>  Are similar to GCNs and seek an aggregation function to fuse the neighboring nodes, random walks, and candidate models in graphs to learn a new representations.<br>  <img src="/images/GCNvsGAN.png" alt="GCNvsGAN"><br>  <em>Fig. 2:Graph Convolution Network v.s. Graph Attention Network</em></p>
+</li>
+<li><p>Graph Auto-encoders</p>
+</li>
+<li><p>Graph Generative Networks</p>
+</li>
+<li><p>Graph Spatial-temporal Networks</p>
+</li>
+</ul>
+<h3 id="Frameworks"><a href="#Frameworks" class="headerlink" title="Frameworks"></a>Frameworks</h3><ul>
+<li><p>Node-level</p>
+</li>
+<li><p>Edge-level</p>
+</li>
+<li><p>Graph-level</p>
+<p> pooling operations</p>
+</li>
+</ul>
+<p><strong>Supervised learning for graph-level classification</strong></p>
+<p>Graph convolutional layer -&gt; pooling layer -&gt; linear layer -&gt; softmax layer</p>
+<h2 id="Graph-Convolution-Network"><a href="#Graph-Convolution-Network" class="headerlink" title="Graph Convolution Network"></a>Graph Convolution Network</h2><h3 id="Spectral-based-Graph-Convolutional-Networks"><a href="#Spectral-based-Graph-Convolutional-Networks" class="headerlink" title="Spectral-based Graph Convolutional Networks"></a>Spectral-based Graph Convolutional Networks</h3><h3 id="Spatial-based-Graph-Convolutional-Networks"><a href="#Spatial-based-Graph-Convolutional-Networks" class="headerlink" title="Spatial-based Graph Convolutional Networks"></a>Spatial-based Graph Convolutional Networks</h3><h3 id="Graph-Pooling-Modules"><a href="#Graph-Pooling-Modules" class="headerlink" title="Graph Pooling Modules"></a>Graph Pooling Modules</h3><p>Similar to the original pooling layer which comes with CNNs, graph pooling module, is also of vital importance, particularly for graph level classification tasks.</p>
+<p>$$h_G = \textit{mean/max/sum}(h_1^T, h_2^T, …, h_n^T)$$</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/deep-learning/" rel="tag"># deep learning</a>
+              <a href="/tags/graph-convolutional-network/" rel="tag"># graph convolutional network</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/04/04/markdownskill/" rel="prev" title="markdown 表格中转义"|"">
+                  <i class="fa fa-chevron-left"></i> markdown 表格中转义"|"
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/04/08/GNN-pooling/" rel="next" title="Differentiable Pooling">
+                  Differentiable Pooling <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">thylakoids</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"all","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>
