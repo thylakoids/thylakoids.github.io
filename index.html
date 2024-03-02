@@ -119,7 +119,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-count">19</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -130,7 +130,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -147,6 +147,87 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/03/02/raspberrypi/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="thylakoids">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dracarys">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Dracarys">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/03/02/raspberrypi/" class="post-title-link" itemprop="url">Pi-hole</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2024-03-02 18:24:26 / 修改时间：21:48:47" itemprop="dateCreated datePublished" datetime="2024-03-02T18:24:26+08:00">2024-03-02</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="Pi-hole"><a href="#Pi-hole" class="headerlink" title="Pi-hole"></a>Pi-hole</h1><h2 id="optional-config-proxy-and-proxychains"><a href="#optional-config-proxy-and-proxychains" class="headerlink" title="(optional)config proxy and proxychains"></a>(optional)config proxy and proxychains</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install proxychains</span><br><span class="line">sudo vim /etc/proxychains.conf</span><br></pre></td></tr></table></figure>
+
+<h2 id="Set-a-static-IP-address"><a href="#Set-a-static-IP-address" class="headerlink" title="Set a static IP address"></a>Set a static IP address</h2><h3 id="Option-1-–-Set-a-DHCP-reservation-on-the-router"><a href="#Option-1-–-Set-a-DHCP-reservation-on-the-router" class="headerlink" title="Option 1 – Set a DHCP reservation on the router"></a>Option 1 – Set a DHCP reservation on the router</h3><h3 id="Option-2-–-Set-a-static-IP-address-on-the-Raspberry-Pi"><a href="#Option-2-–-Set-a-static-IP-address-on-the-Raspberry-Pi" class="headerlink" title="Option 2 – Set a static IP address on the Raspberry Pi"></a>Option 2 – Set a static IP address on the Raspberry Pi</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/dhcpcd.conf</span><br></pre></td></tr></table></figure>
+
+<p>The configuration file should look like this:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Example static IP configuration:</span></span><br><span class="line">interface eth0</span><br><span class="line">static ip_address=192.168.200.52/24</span><br><span class="line"><span class="comment"># static ip6_address=fd51:42f8:caae:d92e::ff/64</span></span><br><span class="line">static routers=192.168.200.1</span><br><span class="line">static domain_name_servers=192.168.200.1 1.1.1.1</span><br></pre></td></tr></table></figure>
+
+<h2 id="Install-Pi-hole"><a href="#Install-Pi-hole" class="headerlink" title="Install Pi-hole"></a>Install Pi-hole</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -sSL https://install.pi-hole.net | bash</span><br></pre></td></tr></table></figure>
+
+<h2 id="Change-the-password-for-the-web-interface"><a href="#Change-the-password-for-the-web-interface" class="headerlink" title="Change the password for the web interface"></a>Change the password for the web interface</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pihole -a -p</span><br></pre></td></tr></table></figure>
+
+<h2 id="log-in-to-the-web-interface"><a href="#log-in-to-the-web-interface" class="headerlink" title="log in to the web interface"></a>log in to the web interface</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1/admin/</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -978,123 +1059,6 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2019/04/04/GCNnote/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="thylakoids">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Dracarys">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Dracarys">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2019/04/04/GCNnote/" class="post-title-link" itemprop="url">GCN note</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2019-04-04 13:29:11" itemprop="dateCreated datePublished" datetime="2019-04-04T13:29:11+08:00">2019-04-04</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-01-30 22:31:45" itemprop="dateModified" datetime="2023-01-30T22:31:45+08:00">2023-01-30</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><h3 id="A-brief-history-of-Graph-Neural-Networks"><a href="#A-brief-history-of-Graph-Neural-Networks" class="headerlink" title="A brief history of Graph Neural Networks"></a>A brief history of Graph Neural Networks</h3><ul>
-<li><p>The notation of graph neural networks was firstly outlined in Gori et al.<br>  (2005)</p>
-</li>
-<li><p>And further elaborated in Micheli (2009) and Scarselli et al. (2009)</p>
-<p>  These early studies learn a target node’s representation by<br>  propagating neighbor information via recurrent neural architectures in<br>  an iterative manner until a stable fixed points is reached. This process is<br>  computationally expensive.</p>
-</li>
-<li><p>The first prominent research on GCNs is presented in Bruna et al.(2013),<br>  which develops a variant of graph convolution based on spectral graph<br>  theory.</p>
-</li>
-<li><p>In addition to graph convolutional networks, many alternative graph<br>  neural networks have been developed in the past few years. These approaches<br>  include graph attention networks, graph autoencoders, graph generative<br>  networks, and graph spatial-temporal networks.</p>
-</li>
-</ul>
-<h3 id="Graph-neural-network-vs-Network-embedding"><a href="#Graph-neural-network-vs-Network-embedding" class="headerlink" title="Graph neural network vs. Network embedding"></a>Graph neural network vs. Network embedding</h3><p>Many network embedding algorithms are typically unsupervised algorithms and<br>they can be broadly classified into three groups: matrix factorization, random<br>walks, and deep learning approaches.</p>
-<p>The deep learning approaches for network embedding at the same time belong to<br>graph neural networks, which include graph antoencoder-based algorithms(e.g.,<br>DNGR and SDNE) and graph convolutional neural networks with unsupervised<br>training(e.g., GraphSage).</p>
-<p><img src="/images/NEvsGNN.png" alt="NEvsGNN"><br><em>Fig. 1:Network Embedding v.s. Graph Neural Networks.</em></p>
-<h2 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h2><p><em>Spatial-Temporal Graph</em> A spatial-temporal graph is an attributed graph where the feature matrix $\textbf{X}$ evolves over time. It is defined as $\mathcal{G} = (\textbf{V,E,A,X})$ with $\textbf{X}\in\textbf{R}^{T\times{N}\times{D}}$ where $T$ is the length of time steps.</p>
-<h2 id="Gategorization-and-Frameworks"><a href="#Gategorization-and-Frameworks" class="headerlink" title="Gategorization and Frameworks"></a>Gategorization and Frameworks</h2><h3 id="Taxonomy-of-GNNs"><a href="#Taxonomy-of-GNNs" class="headerlink" title="Taxonomy of GNNs"></a>Taxonomy of GNNs</h3><ul>
-<li><p>Graph Convolution Networks(GCNs)</p>
-<p>  The key is to learn a function $f$ to generate a node $v_i’$ representation by aggregating its own features $\textbf{X}_i$ and neighbors’ features $\textbf{X}_j$, where $j \in N(v_i)$.</p>
-</li>
-<li><p>Graph Attention Networks</p>
-<p>  Are similar to GCNs and seek an aggregation function to fuse the neighboring nodes, random walks, and candidate models in graphs to learn a new representations.<br>  <img src="/images/GCNvsGAN.png" alt="GCNvsGAN"><br>  <em>Fig. 2:Graph Convolution Network v.s. Graph Attention Network</em></p>
-</li>
-<li><p>Graph Auto-encoders</p>
-</li>
-<li><p>Graph Generative Networks</p>
-</li>
-<li><p>Graph Spatial-temporal Networks</p>
-</li>
-</ul>
-<h3 id="Frameworks"><a href="#Frameworks" class="headerlink" title="Frameworks"></a>Frameworks</h3><ul>
-<li><p>Node-level</p>
-</li>
-<li><p>Edge-level</p>
-</li>
-<li><p>Graph-level</p>
-<p> pooling operations</p>
-</li>
-</ul>
-<p><strong>Supervised learning for graph-level classification</strong></p>
-<p>Graph convolutional layer -&gt; pooling layer -&gt; linear layer -&gt; softmax layer</p>
-<h2 id="Graph-Convolution-Network"><a href="#Graph-Convolution-Network" class="headerlink" title="Graph Convolution Network"></a>Graph Convolution Network</h2><h3 id="Spectral-based-Graph-Convolutional-Networks"><a href="#Spectral-based-Graph-Convolutional-Networks" class="headerlink" title="Spectral-based Graph Convolutional Networks"></a>Spectral-based Graph Convolutional Networks</h3><h3 id="Spatial-based-Graph-Convolutional-Networks"><a href="#Spatial-based-Graph-Convolutional-Networks" class="headerlink" title="Spatial-based Graph Convolutional Networks"></a>Spatial-based Graph Convolutional Networks</h3><h3 id="Graph-Pooling-Modules"><a href="#Graph-Pooling-Modules" class="headerlink" title="Graph Pooling Modules"></a>Graph Pooling Modules</h3><p>Similar to the original pooling layer which comes with CNNs, graph pooling module, is also of vital importance, particularly for graph level classification tasks.</p>
-<p>$$h_G = \textit{mean/max/sum}(h_1^T, h_2^T, …, h_n^T)$$</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
@@ -1108,7 +1072,7 @@
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

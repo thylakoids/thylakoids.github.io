@@ -19,28 +19,28 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.14.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="深入浅出 Webpack">
+    <meta name="description" content="Pi-hole(optional)config proxy and proxychains12sudo apt-get install proxychainssudo vim &#x2F;etc&#x2F;proxychains.conf  Set a static IP addressOption 1 – Set a DHCP reservation on the routerOption 2 – Set a st">
 <meta property="og:type" content="article">
-<meta property="og:title" content="web 基础知识">
-<meta property="og:url" content="http://example.com/2020/11/15/web-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/index.html">
+<meta property="og:title" content="Pi-hole">
+<meta property="og:url" content="http://example.com/2024/03/02/raspberrypi/index.html">
 <meta property="og:site_name" content="Dracarys">
-<meta property="og:description" content="深入浅出 Webpack">
+<meta property="og:description" content="Pi-hole(optional)config proxy and proxychains12sudo apt-get install proxychainssudo vim &#x2F;etc&#x2F;proxychains.conf  Set a static IP addressOption 1 – Set a DHCP reservation on the routerOption 2 – Set a st">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-11-14T16:10:31.000Z">
-<meta property="article:modified_time" content="2023-01-30T14:31:45.168Z">
+<meta property="article:published_time" content="2024-03-02T10:24:26.000Z">
+<meta property="article:modified_time" content="2024-03-02T13:48:47.882Z">
 <meta property="article:author" content="thylakoids">
-<meta property="article:tag" content="webpack">
+<meta property="article:tag" content="Raspberrypi">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://example.com/2020/11/15/web-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
+<link rel="canonical" href="http://example.com/2024/03/02/raspberrypi/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2020/11/15/web-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/","path":"2020/11/15/web-基础知识/","title":"web 基础知识"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2024/03/02/raspberrypi/","path":"2024/03/02/raspberrypi/","title":"Pi-hole"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>web 基础知识 | Dracarys</title>
+<title>Pi-hole | Dracarys</title>
   
 
 
@@ -99,7 +99,7 @@
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -112,6 +112,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Pi-hole"><span class="nav-number">1.</span> <span class="nav-text">Pi-hole</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#optional-config-proxy-and-proxychains"><span class="nav-number">1.1.</span> <span class="nav-text">(optional)config proxy and proxychains</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Set-a-static-IP-address"><span class="nav-number">1.2.</span> <span class="nav-text">Set a static IP address</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Option-1-%E2%80%93-Set-a-DHCP-reservation-on-the-router"><span class="nav-number">1.2.1.</span> <span class="nav-text">Option 1 – Set a DHCP reservation on the router</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Option-2-%E2%80%93-Set-a-static-IP-address-on-the-Raspberry-Pi"><span class="nav-number">1.2.2.</span> <span class="nav-text">Option 2 – Set a static IP address on the Raspberry Pi</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Install-Pi-hole"><span class="nav-number">1.3.</span> <span class="nav-text">Install Pi-hole</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Change-the-password-for-the-web-interface"><span class="nav-number">1.4.</span> <span class="nav-text">Change the password for the web interface</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#log-in-to-the-web-interface"><span class="nav-number">1.5.</span> <span class="nav-text">log in to the web interface</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -162,7 +163,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/11/15/web-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/03/02/raspberrypi/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -175,12 +176,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="web 基础知识 | Dracarys">
+      <meta itemprop="name" content="Pi-hole | Dracarys">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          web 基础知识
+          Pi-hole
         </h1>
 
         <div class="post-meta-container">
@@ -190,24 +191,9 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2020-11-15 00:10:31" itemprop="dateCreated datePublished" datetime="2020-11-15T00:10:31+08:00">2020-11-15</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-01-30 22:31:45" itemprop="dateModified" datetime="2023-01-30T22:31:45+08:00">2023-01-30</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/web/" itemprop="url" rel="index"><span itemprop="name">web</span></a>
-        </span>
+      <time title="创建时间：2024-03-02 18:24:26 / 修改时间：21:48:47" itemprop="dateCreated datePublished" datetime="2024-03-02T18:24:26+08:00">2024-03-02</time>
     </span>
 
   
@@ -220,7 +206,18 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p><a target="_blank" rel="noopener" href="https://webpack.wuhaolin.cn/">深入浅出 Webpack</a></p>
+        <h1 id="Pi-hole"><a href="#Pi-hole" class="headerlink" title="Pi-hole"></a>Pi-hole</h1><h2 id="optional-config-proxy-and-proxychains"><a href="#optional-config-proxy-and-proxychains" class="headerlink" title="(optional)config proxy and proxychains"></a>(optional)config proxy and proxychains</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install proxychains</span><br><span class="line">sudo vim /etc/proxychains.conf</span><br></pre></td></tr></table></figure>
+
+<h2 id="Set-a-static-IP-address"><a href="#Set-a-static-IP-address" class="headerlink" title="Set a static IP address"></a>Set a static IP address</h2><h3 id="Option-1-–-Set-a-DHCP-reservation-on-the-router"><a href="#Option-1-–-Set-a-DHCP-reservation-on-the-router" class="headerlink" title="Option 1 – Set a DHCP reservation on the router"></a>Option 1 – Set a DHCP reservation on the router</h3><h3 id="Option-2-–-Set-a-static-IP-address-on-the-Raspberry-Pi"><a href="#Option-2-–-Set-a-static-IP-address-on-the-Raspberry-Pi" class="headerlink" title="Option 2 – Set a static IP address on the Raspberry Pi"></a>Option 2 – Set a static IP address on the Raspberry Pi</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/dhcpcd.conf</span><br></pre></td></tr></table></figure>
+
+<p>The configuration file should look like this:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Example static IP configuration:</span></span><br><span class="line">interface eth0</span><br><span class="line">static ip_address=192.168.200.52/24</span><br><span class="line"><span class="comment"># static ip6_address=fd51:42f8:caae:d92e::ff/64</span></span><br><span class="line">static routers=192.168.200.1</span><br><span class="line">static domain_name_servers=192.168.200.1 1.1.1.1</span><br></pre></td></tr></table></figure>
+
+<h2 id="Install-Pi-hole"><a href="#Install-Pi-hole" class="headerlink" title="Install Pi-hole"></a>Install Pi-hole</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -sSL https://install.pi-hole.net | bash</span><br></pre></td></tr></table></figure>
+
+<h2 id="Change-the-password-for-the-web-interface"><a href="#Change-the-password-for-the-web-interface" class="headerlink" title="Change the password for the web interface"></a>Change the password for the web interface</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pihole -a -p</span><br></pre></td></tr></table></figure>
+
+<h2 id="log-in-to-the-web-interface"><a href="#log-in-to-the-web-interface" class="headerlink" title="log in to the web interface"></a>log in to the web interface</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1/admin/</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -230,21 +227,18 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/webpack/" rel="tag"># webpack</a>
+              <a href="/tags/Raspberrypi/" rel="tag"># Raspberrypi</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2020/11/02/python-dis-%E6%A8%A1%E5%9D%97/" rel="prev" title="python dis 模块">
-                  <i class="fa fa-chevron-left"></i> python dis 模块
+                <a href="/2023/01/30/hexo/" rel="prev" title="hexo 建站指南">
+                  <i class="fa fa-chevron-left"></i> hexo 建站指南
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2020/11/17/nand2tetris/" rel="next" title="nand2tetris">
-                  nand2tetris <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
