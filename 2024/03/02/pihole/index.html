@@ -27,7 +27,7 @@
 <meta property="og:description" content="Pi-hole(optional)config proxy and proxychains12sudo apt-get install proxychainssudo vim &#x2F;etc&#x2F;proxychains.conf  Set a static IP addressOption 1 – Set a DHCP reservation on the routerOption 2 – Set a st">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-03-02T10:24:26.000Z">
-<meta property="article:modified_time" content="2024-03-02T14:11:54.419Z">
+<meta property="article:modified_time" content="2024-03-03T07:12:31.491Z">
 <meta property="article:author" content="thylakoids">
 <meta property="article:tag" content="Raspberry Pi">
 <meta property="article:tag" content="Pi-hole">
@@ -192,9 +192,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2024-03-02 18:24:26 / 修改时间：22:11:54" itemprop="dateCreated datePublished" datetime="2024-03-02T18:24:26+08:00">2024-03-02</time>
+      <time title="创建时间：2024-03-02 18:24:26" itemprop="dateCreated datePublished" datetime="2024-03-02T18:24:26+08:00">2024-03-02</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-03-03 15:12:31" itemprop="dateModified" datetime="2024-03-03T15:12:31+08:00">2024-03-03</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -218,10 +224,15 @@
     <div class="post-body" itemprop="articleBody">
         <h1 id="Pi-hole"><a href="#Pi-hole" class="headerlink" title="Pi-hole"></a>Pi-hole</h1><h2 id="optional-config-proxy-and-proxychains"><a href="#optional-config-proxy-and-proxychains" class="headerlink" title="(optional)config proxy and proxychains"></a>(optional)config proxy and proxychains</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install proxychains</span><br><span class="line">sudo vim /etc/proxychains.conf</span><br></pre></td></tr></table></figure>
 
-<h2 id="Set-a-static-IP-address"><a href="#Set-a-static-IP-address" class="headerlink" title="Set a static IP address"></a>Set a static IP address</h2><h3 id="Option-1-–-Set-a-DHCP-reservation-on-the-router"><a href="#Option-1-–-Set-a-DHCP-reservation-on-the-router" class="headerlink" title="Option 1 – Set a DHCP reservation on the router"></a>Option 1 – Set a DHCP reservation on the router</h3><h3 id="Option-2-–-Set-a-static-IP-address-on-the-Raspberry-Pi"><a href="#Option-2-–-Set-a-static-IP-address-on-the-Raspberry-Pi" class="headerlink" title="Option 2 – Set a static IP address on the Raspberry Pi"></a>Option 2 – Set a static IP address on the Raspberry Pi</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/dhcpcd.conf</span><br></pre></td></tr></table></figure>
+<h2 id="Set-a-static-IP-address"><a href="#Set-a-static-IP-address" class="headerlink" title="Set a static IP address"></a>Set a static IP address</h2><h3 id="Option-1-–-Set-a-DHCP-reservation-on-the-router"><a href="#Option-1-–-Set-a-DHCP-reservation-on-the-router" class="headerlink" title="Option 1 – Set a DHCP reservation on the router"></a>Option 1 – Set a DHCP reservation on the router</h3><h3 id="Option-2-–-Set-a-static-IP-address-on-the-Raspberry-Pi"><a href="#Option-2-–-Set-a-static-IP-address-on-the-Raspberry-Pi" class="headerlink" title="Option 2 – Set a static IP address on the Raspberry Pi"></a>Option 2 – Set a static IP address on the Raspberry Pi</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/netplan/01-network-manager-all.yaml</span><br></pre></td></tr></table></figure>
 
 <p>The configuration file should look like this:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Example static IP configuration:</span></span><br><span class="line">interface eth0</span><br><span class="line">static ip_address=192.168.200.52/24</span><br><span class="line"><span class="comment"># static ip6_address=fd51:42f8:caae:d92e::ff/64</span></span><br><span class="line">static routers=192.168.200.1</span><br><span class="line">static domain_name_servers=192.168.200.1 1.1.1.1</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">network:</span><br><span class="line"> version: 2</span><br><span class="line"> renderer: NetworkManager</span><br><span class="line"> ethernets:</span><br><span class="line">   eth0:</span><br><span class="line">     dhcp4: <span class="literal">false</span></span><br><span class="line">     addresses: [172.23.207.254/20]</span><br><span class="line">     routes:</span><br><span class="line">       - to: default</span><br><span class="line">         via: 192.168.10.1</span><br><span class="line">     nameservers:</span><br><span class="line">       addresses: [192.168.10.1]</span><br></pre></td></tr></table></figure>
+<p>Apply the changes:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo netplan try</span><br></pre></td></tr></table></figure>
+<p>If there are no errors, press enter to apply the changes.</p>
+<p>Now, finally, test the changes with the command below:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ip a</span><br></pre></td></tr></table></figure>
 
 <h2 id="Install-Pi-hole"><a href="#Install-Pi-hole" class="headerlink" title="Install Pi-hole"></a>Install Pi-hole</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -sSL https://install.pi-hole.net | bash</span><br></pre></td></tr></table></figure>
 
